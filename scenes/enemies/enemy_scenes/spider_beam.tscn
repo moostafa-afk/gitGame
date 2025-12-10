@@ -1,0 +1,202 @@
+[gd_scene load_steps=12 format=3 uid="uid://bufpllvcroemw"]
+
+[ext_resource type="Texture2D" uid="uid://dlxmfqdt4v3ki" path="res://assets/enemies/egg turret/Shoot/new_laser.png" id="1_2ycer"]
+[ext_resource type="Material" uid="uid://p7x1je6dtmo4" path="res://Shaders/.tres files/plasm_wave2.tres" id="2_sxd6g"]
+[ext_resource type="Texture2D" uid="uid://dgh4jqo6ps7nw" path="res://assets/enemies/spider/laser_beam2.png" id="3_ylnva"]
+[ext_resource type="Material" uid="uid://bnxdyck2ac4os" path="res://Shaders/.tres files/squash_and_stretch.tres" id="4_sxd6g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e0kjr"]
+
+[sub_resource type="Animation" id="Animation_oqfum"]
+resource_name = "laser"
+length = 4.0
+loop_mode = 1
+step = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("laser_pivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(1, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("laser_pivot:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.682424, 1.00356]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shape_cast pivot:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 3.792)]
+}
+
+[sub_resource type="Animation" id="Animation_rspc8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("laser_pivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("laser_pivot:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.682424]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("shape_cast pivot:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 3.792)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fppp2"]
+_data = {
+&"RESET": SubResource("Animation_rspc8"),
+&"laser": SubResource("Animation_oqfum")
+}
+
+[sub_resource type="Animation" id="Animation_2ycer"]
+resource_name = "shape_cast_beam"
+length = 4.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shape_cast pivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 3.792), Vector2(10, 10), Vector2(10, 10)]
+}
+
+[sub_resource type="Animation" id="Animation_sxd6g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("shape_cast pivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 3.792)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ylnva"]
+_data = {
+&"RESET": SubResource("Animation_sxd6g"),
+&"shape_cast_beam": SubResource("Animation_2ycer")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="laser_pivot" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(0, -2)
+scale = Vector2(1e-05, 1)
+skew = 0.682424
+texture = ExtResource("1_2ycer")
+offset = Vector2(16.605, 0.65)
+
+[node name="laser_beam" type="Line2D" parent="laser_pivot"]
+z_index = -1
+material = ExtResource("2_sxd6g")
+position = Vector2(-2959.87, 4.18761)
+rotation = -0.00179896
+scale = Vector2(10.2159, -1.09202)
+skew = 0.716386
+points = PackedVector2Array(295.22, -0.75296, 2318.31, -0.841346)
+texture = ExtResource("3_ylnva")
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="laser_pivot"]
+visible = false
+position = Vector2(84.1775, -0.790394)
+rotation = 4.62784
+scale = Vector2(0.395, 0.951)
+shape = SubResource("RectangleShape2D_e0kjr")
+target_position = Vector2(-28.894, 141.974)
+
+[node name="shape_cast pivot" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.988235)
+position = Vector2(-8, -1)
+scale = Vector2(1e-05, 3.792)
+skew = 0.981314
+texture = ExtResource("1_2ycer")
+offset = Vector2(11.175, 0.65)
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="shape_cast pivot"]
+position = Vector2(3.39904, 0.359757)
+rotation = 4.62784
+scale = Vector2(0.395, 0.951)
+shape = SubResource("RectangleShape2D_e0kjr")
+target_position = Vector2(-28.894, 141.974)
+
+[node name="laser_beam" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fppp2")
+}
+autoplay = "laser"
+
+[node name="shape_cast" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ylnva")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("4_sxd6g")
+texture = ExtResource("1_2ycer")
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(-59, -15, 74, -13)
+texture = ExtResource("1_2ycer")
+texture_mode = 2

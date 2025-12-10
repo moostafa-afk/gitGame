@@ -1,0 +1,21 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://c2l3q7j41m2i7"]
+
+[sub_resource type="Curve" id="Curve_msb35"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.965368, 0.640449), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gcm4o"]
+curve = SubResource("Curve_msb35")
+
+[resource]
+lifetime_randomness = 0.22
+particle_flag_disable_z = true
+angular_velocity_min = -10.0
+angular_velocity_max = 9.99998
+gravity = Vector3(0, 100, 0)
+scale_curve = SubResource("CurveTexture_gcm4o")
+hue_variation_min = -1.0
+hue_variation_max = -1.0
+anim_speed_min = 2.0
+anim_speed_max = 2.0
+anim_offset_max = 0.1

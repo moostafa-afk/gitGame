@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c6e8uettfdu0c"]
+
+[ext_resource type="Shader" uid="uid://dwn1kdpp7ctwt" path="res://Shaders/checker_board.gdshader" id="1_ibeim"]
+
+[resource]
+shader = ExtResource("1_ibeim")
+shader_parameter/speed = 0.3
+shader_parameter/alpha = 1.0
+shader_parameter/line_color = Color(0.027451, 1, 1, 0.498039)
+shader_parameter/checker_size = Vector2(100, 100)

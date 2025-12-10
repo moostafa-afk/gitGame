@@ -1,0 +1,73 @@
+[gd_scene load_steps=12 format=3 uid="uid://edto2akn7xt5"]
+
+[ext_resource type="Script" uid="uid://nq0ucsuv6lj0" path="res://scenes/instantiated/particle_queue.gd" id="1_kq56r"]
+[ext_resource type="AudioStream" uid="uid://qpkpcabni264" path="res://sound_effects/laser_hit.wav" id="2_xbucf"]
+[ext_resource type="Script" uid="uid://bafwihduw56kg" path="res://sound_effects/pitch_randomizer.gd" id="3_gnpmj"]
+
+[sub_resource type="Curve" id="Curve_xbucf"]
+_data = [Vector2(0.163121, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.775281), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u27au"]
+curve = SubResource("Curve_xbucf")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xbucf"]
+
+[sub_resource type="Gradient" id="Gradient_o62dd"]
+offsets = PackedFloat32Array(0.00823045, 0.54321, 1)
+colors = PackedColorArray(0.0212428, 0.000446047, 0.00102349, 1, 0.459526, 0.0269091, 0.0549001, 1, 0.846185, 0.144466, 0.154886, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0h3w5"]
+gradient = SubResource("Gradient_o62dd")
+
+[sub_resource type="Curve" id="Curve_kq56r"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pak8g"]
+curve = SubResource("Curve_kq56r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xbucf"]
+lifetime_randomness = 0.34
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -230.8
+angle_max = 141.8
+inherit_velocity_ratio = 0.96
+direction = Vector3(0, -1000, 0)
+spread = 67.765
+flatness = 0.353
+initial_velocity_max = 357.33
+gravity = Vector3(0, -20, 0)
+linear_accel_min = -29.85
+linear_accel_max = -0.0100022
+scale_max = 2.5
+scale_curve = SubResource("CurveTexture_pak8g")
+color_ramp = SubResource("GradientTexture1D_0h3w5")
+color_initial_ramp = SubResource("GradientTexture1D_xbucf")
+alpha_curve = SubResource("CurveTexture_u27au")
+
+[node name="laser_particles" type="GPUParticles2D"]
+modulate = Color(5, 1.6, 1.6, 1)
+scale = Vector2(1.0016, 0.956332)
+amount = 40
+lifetime = 0.4
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xbucf")
+script = ExtResource("1_kq56r")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_xbucf")
+volume_db = -47.096
+pitch_scale = 1.53
+autoplay = true
+script = ExtResource("3_gnpmj")
+low = 1.5
+high = 1.6

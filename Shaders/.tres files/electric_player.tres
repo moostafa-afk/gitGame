@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dh5f8d8y6g0ya"]
+
+[ext_resource type="Shader" uid="uid://csyo878b4sn8d" path="res://Shaders/replace_color._W_glowgdshader.gdshader" id="1_odm4f"]
+
+[resource]
+shader = ExtResource("1_odm4f")
+shader_parameter/target_color = Color(0.109804, 0.141176, 0.254902, 1)
+shader_parameter/replce_color = Color(0.204247, 0.493918, 0.659584, 1)
+shader_parameter/tolerance = 0.088
+shader_parameter/target_color_2 = Color(0, 0.188235, 0, 1)
+shader_parameter/replce_color_2 = Color(0.0438499, 0.362585, 0.519814, 1)
+shader_parameter/tolerance_2 = 0.728
+shader_parameter/target_color_3 = Color(0.227451, 0, 0, 1)
+shader_parameter/replce_color_3 = Color(0.124266, 0.376566, 0.468763, 1)
+shader_parameter/tolerance_3 = 0.408
+shader_parameter/target_color_4 = Color(0.968627, 1, 0.886275, 1)
+shader_parameter/replce_color_4 = Color(0.519233, 0.63274, 0.97306, 1)
+shader_parameter/tolerance_4 = 0.528
+shader_parameter/glow_color = Color(0.452763, 0.530018, 0.50467, 1)
+shader_parameter/glow_power = 5.0
+shader_parameter/glow_shift = 0.7
+shader_parameter/glow_radius = 1.0

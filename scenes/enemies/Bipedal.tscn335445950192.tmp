@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0006wlolthmt"]
+
+[ext_resource type="Script" uid="uid://dvl4ibyxf7k4k" path="res://scenes/enemies/bipedal/bipedal.gd" id="1_0mhj7"]
+[ext_resource type="Texture2D" uid="uid://cwtta1ilf2dxy" path="res://assets/enemies/bipedal/spritesheet.png" id="1_ws8bp"]
+[ext_resource type="BehaviorTree" uid="uid://dk6bsl8iqc4uw" path="res://ai/trees/bipedal.tres" id="3_0mhj7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ptbch"]
+size = Vector2(92.3372, 7.68823)
+
+[sub_resource type="Animation" id="Animation_ogaxb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0mhj7"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ojp0q"]
+_data = {
+&"RESET": SubResource("Animation_ogaxb"),
+&"walk": SubResource("Animation_0mhj7")
+}
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_0mhj7"]
+
+[sub_resource type="GDScript" id="GDScript_0mhj7"]
+script/source = "extends Area2D
+
+func _on_body_entered(body: Node2D) -> void:
+    if body.is_in_group(\"player\"):
+        print(\"bipedal on player\")
+
+
+func _on_body_exited(body: Node2D) -> void:
+    pass # Replace with function body.
+"
+
+[node name="Bipedal" type="CharacterBody2D"]
+modulate = Color(0.6, 0.6, 0.6, 1)
+collision_layer = 4
+collision_mask = 1073741833
+script = ExtResource("1_0mhj7")
+speed = 1000
+gravity = 2000
+
+[node name="Sprites" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="walk" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("1_ws8bp")
+hframes = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 5.5)
+scale = Vector2(0.563153, -6.89365)
+shape = SubResource("RectangleShape2D_ptbch")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ojp0q")
+}
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+navigation_layers = 2
+path_postprocessing = 1
+avoidance_enabled = true
+max_speed = 130.0
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+autostart = true
+
+[node name="ray_right" type="RayCast2D" parent="."]
+position = Vector2(24, 25)
+scale = Vector2(0.944776, 0.249239)
+target_position = Vector2(-1.72853e-06, 40)
+collision_mask = 0
+
+[node name="ray_left" type="RayCast2D" parent="."]
+position = Vector2(-28, 25)
+scale = Vector2(0.944776, 0.249239)
+target_position = Vector2(-1.72853e-06, 40)
+collision_mask = 0
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("3_0mhj7")
+blackboard_plan = SubResource("BlackboardPlan_0mhj7")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = SubResource("GDScript_0mhj7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2, 5.5)
+scale = Vector2(0.563153, -6.89365)
+shape = SubResource("RectangleShape2D_ptbch")
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

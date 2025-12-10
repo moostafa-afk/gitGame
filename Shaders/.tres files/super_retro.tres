@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dug38ba7x0vwd"]
+
+[ext_resource type="Shader" uid="uid://5ettja8su3fk" path="res://Shaders/crazy_shader.gdshader" id="1_77nk0"]
+
+[resource]
+shader = ExtResource("1_77nk0")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/GLOW_active = true
+shader_parameter/glow_color = Color(0.205117, 0.205117, 0.205117, 1)
+shader_parameter/glow_power = 27.6
+shader_parameter/glow_shift = 1.1
+shader_parameter/glow_radius = 1.0
+shader_parameter/progress = 0.461
+shader_parameter/block_size = 1.0

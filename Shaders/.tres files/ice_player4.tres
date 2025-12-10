@@ -1,0 +1,76 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ca2gnxhtb0ecv"]
+
+[sub_resource type="Shader" id="Shader_3tcbl"]
+code = "shader_type canvas_item;
+
+uniform vec4 target_color : source_color;
+uniform vec4 replce_color : source_color;
+uniform float tolerance : hint_range(0, 1);
+
+uniform vec4 target_color_2 : source_color;
+uniform vec4 replce_color_2 : source_color;
+uniform float tolerance_2 : hint_range(0, 1);
+
+uniform vec4 target_color_3 : source_color;
+uniform vec4 replce_color_3 : source_color;
+uniform float tolerance_3 : hint_range(0, 1);
+
+uniform vec4 target_color_4 : source_color;
+uniform vec4 replce_color_4 : source_color;
+uniform float tolerance_4 : hint_range(0, 1);
+
+uniform vec4 glow_color : source_color;
+uniform float glow_power: hint_range(0.0, 100.0, .1) = 2.0;
+uniform float glow_shift: hint_range(0.0, 10.0, 0.1) = 1.0;
+uniform float glow_radius: hint_range(1.0, 50.0, 1.0) = 1.0;
+
+// helper function: applies color replacement to a sampled pixel
+vec4 apply_replacements(vec4 c) {
+    if (distance(c.rgb, target_color.rgb) < tolerance)
+        c.rgb = replce_color.rgb;
+    else if (distance(c.rgb, target_color_2.rgb) < tolerance_2)
+        c.rgb = replce_color_2.rgb;
+    else if (distance(c.rgb, target_color_3.rgb) < tolerance_3)
+        c.rgb = replce_color_3.rgb;
+    else if (distance(c.rgb, target_color_4.rgb) < tolerance_4)
+        c.rgb = replce_color_4.rgb;
+    return c;
+}
+
+void fragment() {
+    vec4 tex_color = apply_replacements(texture(TEXTURE, UV));
+    
+    // build glow from replaced colors instead of raw texture
+    vec4 glow = vec4(0.0);
+    float count = 0.0;
+    for (float x = -glow_radius; x <= glow_radius; x += 1.0) {
+        for (float y = -glow_radius; y <= glow_radius; y += 1.0) {
+            vec2 offset = vec2(x, y) * glow_shift * TEXTURE_PIXEL_SIZE;
+            glow += apply_replacements(texture(TEXTURE, UV + offset)) * glow_color;
+            count += 1.0;
+        }
+    }
+    glow *= glow_power / count;
+    
+    COLOR = mix(tex_color, glow, glow.a);
+}
+"
+
+[resource]
+shader = SubResource("Shader_3tcbl")
+shader_parameter/target_color = Color(0.137255, 0.184314, 0.337255, 1)
+shader_parameter/replce_color = Color(0.50981, 0.76765, 0.941157, 1)
+shader_parameter/tolerance = 0.008
+shader_parameter/target_color_2 = Color(0.192157, 0.247059, 0.423529, 1)
+shader_parameter/replce_color_2 = Color(0.438667, 0.651938, 0.904854, 1)
+shader_parameter/tolerance_2 = 0.044
+shader_parameter/target_color_3 = Color(0.109804, 0.141176, 0.254902, 1)
+shader_parameter/replce_color_3 = Color(0.303147, 0.638295, 0.844982, 1)
+shader_parameter/tolerance_3 = 0.056
+shader_parameter/target_color_4 = Color(0, 0, 0.239216, 1)
+shader_parameter/replce_color_4 = Color(0.497474, 0.497474, 0.497474, 1)
+shader_parameter/tolerance_4 = 0.592
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 0.7
+shader_parameter/glow_shift = 0.3
+shader_parameter/glow_radius = 1.0

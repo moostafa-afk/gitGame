@@ -1,0 +1,55 @@
+[gd_resource type="BehaviorTree" load_steps=13 format=3 uid="uid://droo2ihix7kn2"]
+
+[ext_resource type="Script" uid="uid://cg8gpkokhvmln" path="res://ai/tasks/electric_drone/Check distance.gd" id="1_1gvs0"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ymvx1"]
+var/flag/name = &"flag"
+var/flag/type = 4
+var/flag/value = ""
+var/flag/hint = 0
+var/flag/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_01qo7"]
+custom_name = "Distance To Player"
+script = ExtResource("1_1gvs0")
+min_distance = 50
+
+[sub_resource type="BBNode" id="BBNode_1gvs0"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_01qo7"]
+animation_player = SubResource("BBNode_1gvs0")
+animation_name = &"Shoot"
+
+[sub_resource type="BBNode" id="BBNode_01qo7"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_w8q6f"]
+animation_player = SubResource("BBNode_01qo7")
+animation_name = &"Shoot"
+max_time = 0.5
+
+[sub_resource type="BTSequence" id="BTSequence_w8q6f"]
+custom_name = "Shoot"
+children = [SubResource("BTAction_01qo7"), SubResource("BTPlayAnimation_01qo7"), SubResource("BTAwaitAnimation_w8q6f")]
+
+[sub_resource type="BBNode" id="BBNode_ymvx1"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_1gvs0"]
+animation_player = SubResource("BBNode_ymvx1")
+animation_name = &"Idle"
+
+[sub_resource type="BTSequence" id="BTSequence_01qo7"]
+custom_name = "Idle"
+children = [SubResource("BTPlayAnimation_1gvs0")]
+
+[sub_resource type="BTSelector" id="BTSelector_01qo7"]
+children = [SubResource("BTSequence_w8q6f"), SubResource("BTSequence_01qo7")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ymvx1")
+root_task = SubResource("BTSelector_01qo7")

@@ -1,0 +1,458 @@
+[gd_scene load_steps=15 format=3 uid="uid://wto7m2dga5ci"]
+
+[ext_resource type="Script" uid="uid://d1j1ekrspl7kw" path="res://scenes/enemies/scripts/drone/drone_blast_recoil.gd" id="1_wry0d"]
+[ext_resource type="Texture2D" uid="uid://dpet7fq1r0mo6" path="res://assets/enemies/egg turret/Shoot/blast_11.png" id="2_aawhf"]
+[ext_resource type="Texture2D" uid="uid://d0maw3twh7l54" path="res://assets/enemies/egg turret/Idle/thruster.png" id="2_g64jc"]
+[ext_resource type="Script" uid="uid://sb683at25q1i" path="res://scenes/instantiated/delete_sprite_animation.gd" id="2_xve62"]
+[ext_resource type="Material" uid="uid://c2l3q7j41m2i7" path="res://Shaders/particle_presets/anim_time_hframes.tres" id="3_xve62"]
+[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://demo/agents/scripts/hitbox.gd" id="5_aawhf"]
+[ext_resource type="AudioStream" uid="uid://vdcsujykjh2d" path="res://sound_effects/fire_blast.wav" id="6_2id46"]
+
+[sub_resource type="Animation" id="Animation_xve62"]
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("left:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("middle:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("right:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("left:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("middle:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aawhf"]
+resource_name = "flames"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("middle:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("left:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("right:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("right:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1), Vector2(1.5, 1.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("left:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1), Vector2(1.5, 1.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("middle:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1), Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aawhf"]
+_data = {
+&"RESET": SubResource("Animation_xve62"),
+&"flames": SubResource("Animation_aawhf")
+}
+
+[sub_resource type="Shader" id="Shader_xve62"]
+code = "//ATTENTION:
+//  THIS IS SHADE AUTOGENERATED BY
+//  THE ADDON SPRITE-SHADER-MIXER
+//  ANY MANUAL CHANGES WILL BE REMOVED WHEN THE ADDON
+//  UPDATES THIS SHADER.
+//  ANYWAY, YOU CAN SAVE THE CURRENT VERSION AS A RESOURCE FILE.
+//SHADERS:Glow,Color Swap,Glitch,
+shader_type canvas_item;
+
+uniform float opacity:hint_range(0.0, 1.0, 0.01)=1.;
+
+	
+uniform bool GLOW_active = true;
+uniform vec4 glow_color : source_color = vec4(1.0);
+uniform float glow_power: hint_range(0.0, 100.0, .1) = 2.0;
+uniform float glow_shift: hint_range(0.0, 10.0, 0.1) = 1.0;
+uniform float glow_radius: hint_range(1.0, 50.0, 1.0) = 1.0;
+
+
+void glow(in vec2 uv, in sampler2D tex, in vec2 size, in vec2 pix_size, inout vec4 color) {
+	vec4 glow = vec4(0.0);
+	float count = 0.0;
+	for (float x = -glow_radius; x <= glow_radius; x += 1.0) {
+		for (float y = -glow_radius; y <= glow_radius; y += 1.0) {
+			vec2 offset = vec2(x, y) * glow_shift * pix_size;
+			glow += texture(tex, uv + offset) * glow_color;
+			count += 1.0;
+		}
+	}
+	glow *= glow_power / count;
+	color = mix(texture(tex, uv), glow, glow.a) ;
+}
+
+uniform bool  COLORSWAP_active = true;
+uniform float COLORSWAP_mix:hint_range(0,1,0.1) = 0;
+uniform int   COLORSWAP_max_colors:hint_range(1, 8, 1) = 8;
+uniform bool  COLORSWAP_show_stripes = true;
+uniform float COLORSWAP_tolerance: hint_range(0.0, 1, 0.1);
+uniform vec4  COLORSWAP_input_color1 : source_color;
+uniform vec4  COLORSWAP_output_color1 : source_color;
+uniform vec4  COLORSWAP_input_color2 : source_color;
+uniform vec4  COLORSWAP_output_color2 : source_color;
+uniform vec4  COLORSWAP_input_color3 : source_color;
+uniform vec4  COLORSWAP_output_color3 : source_color;
+uniform vec4  COLORSWAP_input_color4 : source_color;
+uniform vec4  COLORSWAP_output_color4 : source_color;
+uniform vec4  COLORSWAP_input_color5 : source_color;
+uniform vec4  COLORSWAP_output_color5 : source_color;
+uniform vec4  COLORSWAP_input_color6 : source_color;
+uniform vec4  COLORSWAP_output_color6 : source_color;
+uniform vec4  COLORSWAP_input_color7 : source_color;
+uniform vec4  COLORSWAP_output_color7 : source_color;
+uniform vec4  COLORSWAP_input_color8 : source_color;
+uniform vec4  COLORSWAP_output_color8 : source_color;
+vec4 COLORSWAP_grayscale(vec4 color){
+	float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+	return vec4(gray, gray, gray, color.a);
+}
+vec4 COLORSWAP_stripe(vec2 uv, vec4 color){
+	float w = cos(0.7854) * uv.x + sin(0.7854) * uv.y - 0.05 * TIME;
+	if (floor(mod(w * 48.0, 2.0)) < 0.0001) {
+		return color;
+	}
+	else {
+		return COLORSWAP_grayscale(color);
+	}
+}
+bool COLORSWAP_isColorSimilar(vec4 color1, vec4 color2){
+		return (
+			color1.r > (color2.r - COLORSWAP_tolerance) && 
+		    color1.r < (color2.r + COLORSWAP_tolerance) && 
+			color1.g > (color2.g - COLORSWAP_tolerance) && 
+		    color1.g < (color2.g + COLORSWAP_tolerance) &&
+			color1.b > (color2.b - COLORSWAP_tolerance) && 
+		    color1.b < (color2.b + COLORSWAP_tolerance)
+			);
+}
+void colorswap(in vec2 uv, in sampler2D txt, in vec2 size, in vec2 pixelSize, inout vec4 finalColor){
+	vec4[] input_colors = {
+		COLORSWAP_input_color1,
+		COLORSWAP_input_color2,
+		COLORSWAP_input_color3,
+		COLORSWAP_input_color4,
+		COLORSWAP_input_color5,
+		COLORSWAP_input_color6,
+		COLORSWAP_input_color7,
+		COLORSWAP_input_color8
+	};
+	
+	vec4[] output_colors = {
+		COLORSWAP_output_color1,
+		COLORSWAP_output_color2,
+		COLORSWAP_output_color3,
+		COLORSWAP_output_color4,
+		COLORSWAP_output_color5,
+		COLORSWAP_output_color6,
+		COLORSWAP_output_color7,
+		COLORSWAP_output_color8
+	};
+		
+	bool is_color = false;
+	
+	for(int cr = 0; cr < COLORSWAP_max_colors; cr++){
+		if (finalColor.a>0. && COLORSWAP_isColorSimilar(finalColor, input_colors[cr])){
+			finalColor = mix(output_colors[cr], finalColor, COLORSWAP_mix);
+			is_color = true;
+			break;
+		}
+	}
+
+	if (!is_color){
+		if (COLORSWAP_show_stripes && !(finalColor.a < 0.001)){
+			finalColor = mix(COLORSWAP_stripe(uv, finalColor), finalColor, COLORSWAP_mix);
+		}
+	}
+}
+
+//GLITCH
+uniform bool  GLITCH_active  = true;
+uniform float GLITCH_offset: hint_range(0, 100) = 0;
+uniform float GLITCH_speed : hint_range(0, 10) = 3;
+uniform float GLITCH_size : hint_range(0.0, 10.0) = 0.75;
+uniform float GLITCH_amount : hint_range(0.0, 24.0) = 10.0;
+uniform float GLITCH_mix: hint_range(0.0, 1.0)=1.0;
+float rand1(vec2 co, float random_seed)
+{
+    return fract(sin(dot(co.xy * random_seed, vec2(12.,85.5))) * 120.01);
+}
+float rand2(vec2 co, float random_seed)
+{
+    float r1 = fract(sin(dot(co.xy * random_seed ,vec2(12.9898, 78.233))) * 43758.5453);
+    return fract(sin(dot(vec2(r1 + co.xy * 1.562) ,vec2(12.9898, 78.233))) * 43758.5453);
+}
+void glitch(in vec2 uv, in sampler2D tex, vec2 size, vec2 pixelSize, inout vec4 color) {
+	float seed = floor(TIME * GLITCH_speed) / 20.0;
+	vec2 blockS = floor(uv * vec2 (GLITCH_offset, 50.) * GLITCH_size) * 2.0;
+	vec2  blockL = floor(uv * vec2 (GLITCH_offset, 50.) * GLITCH_size) * 1.3;
+
+	float line_noise = pow(rand2(blockS, seed), 5.0) * GLITCH_amount * pow(rand2(blockL, seed), 3.0);
+	
+	float negative=-1.;
+	float random = rand1(vec2(0.1), seed);
+	if(  random < 0.5 ){
+		negative=1.;
+	}	
+	vec4 newColor=texture(tex, uv + vec2 (line_noise * 0.02 * negative * rand1(vec2(2.0), seed), 0));
+	color = mix(color,newColor, GLITCH_mix);
+}
+
+
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	vec2 size = vec2(textureSize(TEXTURE, 0));
+	vec2 uv = UV;
+	vec2 screen_uv = SCREEN_UV;
+
+	if(GLOW_active) glow(uv, TEXTURE, size, TEXTURE_PIXEL_SIZE, color);
+	if(COLORSWAP_active) colorswap(uv, TEXTURE, size, TEXTURE_PIXEL_SIZE, color);
+	if(GLITCH_active) glitch(uv, TEXTURE, size, TEXTURE_PIXEL_SIZE, color);
+
+
+	color.a*=opacity;
+	COLOR=color;
+}
+
+void vertex() {
+	
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aawhf"]
+shader = SubResource("Shader_xve62")
+shader_parameter/opacity = 1.0
+shader_parameter/GLOW_active = true
+shader_parameter/glow_color = Color(0.366595, 0.366595, 0.366595, 1)
+shader_parameter/glow_power = 0.9
+shader_parameter/glow_shift = 0.0
+shader_parameter/glow_radius = 1.0
+shader_parameter/COLORSWAP_active = true
+shader_parameter/COLORSWAP_mix = 0.2
+shader_parameter/COLORSWAP_max_colors = 4
+shader_parameter/COLORSWAP_show_stripes = false
+shader_parameter/COLORSWAP_tolerance = 0.1
+shader_parameter/COLORSWAP_input_color1 = Color(0.537255, 0.619608, 0.615686, 1)
+shader_parameter/COLORSWAP_output_color1 = Color(0.210102, 0.960827, 0.999999, 1)
+shader_parameter/COLORSWAP_input_color2 = Color(0.137255, 0.203922, 0.427451, 1)
+shader_parameter/COLORSWAP_output_color2 = Color(4.42803e-06, 0.813494, 0.85125, 1)
+shader_parameter/COLORSWAP_input_color3 = Color(0.192157, 0.513726, 0.556863, 1)
+shader_parameter/COLORSWAP_output_color3 = Color(0.223338, 0.773216, 0.835741, 1)
+shader_parameter/COLORSWAP_input_color4 = Color(0.388235, 0.556863, 0.572549, 1)
+shader_parameter/COLORSWAP_output_color4 = Color(7.89344e-06, 0.913305, 0.790462, 1)
+shader_parameter/COLORSWAP_input_color5 = Color(0, 0, 0, 1)
+shader_parameter/COLORSWAP_output_color5 = Color(0, 0, 0, 1)
+shader_parameter/COLORSWAP_input_color6 = Color(0, 0, 0, 1)
+shader_parameter/COLORSWAP_output_color6 = Color(0, 0, 0, 1)
+shader_parameter/COLORSWAP_input_color7 = Color(0, 0, 0, 1)
+shader_parameter/COLORSWAP_output_color7 = Color(0, 0, 0, 1)
+shader_parameter/COLORSWAP_input_color8 = Color(0, 0, 0, 1)
+shader_parameter/COLORSWAP_output_color8 = Color(0, 0, 0, 1)
+shader_parameter/GLITCH_active = true
+shader_parameter/GLITCH_offset = 0.0
+shader_parameter/GLITCH_speed = 3.0
+shader_parameter/GLITCH_size = 0.34
+shader_parameter/GLITCH_amount = 4.954
+shader_parameter/GLITCH_mix = 0.118
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dopnk"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2id46"]
+size = Vector2(20.1519, 19.711)
+
+[node name="Node2D" type="Node2D" groups=["drone_blast"]]
+script = ExtResource("1_wry0d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_aawhf")
+}
+autoplay = "flames"
+speed_scale = 1.4
+
+[node name="left" type="Sprite2D" parent="."]
+modulate = Color(0.8, 0.8, 0.8, 1)
+material = SubResource("ShaderMaterial_aawhf")
+position = Vector2(-16.7588, 18.6573)
+rotation = 0.626329
+scale = Vector2(1.2, 1)
+texture = ExtResource("2_aawhf")
+hframes = 8
+script = ExtResource("2_xve62")
+
+[node name="middle" type="Sprite2D" parent="."]
+modulate = Color(0.8, 0.8, 0.8, 1)
+material = SubResource("ShaderMaterial_aawhf")
+position = Vector2(6.24116, 19.6573)
+rotation = -0.00502536
+scale = Vector2(1.2, 1)
+texture = ExtResource("2_aawhf")
+hframes = 8
+script = ExtResource("2_xve62")
+
+[node name="right" type="Sprite2D" parent="."]
+modulate = Color(0.8, 0.8, 0.8, 1)
+material = SubResource("ShaderMaterial_aawhf")
+position = Vector2(24.2412, 8.65727)
+rotation = -0.852088
+scale = Vector2(1.2, 1)
+skew = 0.157457
+texture = ExtResource("2_aawhf")
+hframes = 8
+script = ExtResource("2_xve62")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_dopnk")
+position = Vector2(1, 22)
+amount = 2
+texture = ExtResource("2_g64jc")
+lifetime = 0.15
+speed_scale = 20.34
+explosiveness = 0.43
+randomness = 0.21
+process_material = ExtResource("3_xve62")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("5_aawhf")
+damage = 20.0
+metadata/_custom_type_script = "uid://dntc3c582m5w8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(3.2394, 33.7916)
+scale = Vector2(3.15212, 1.44167)
+shape = SubResource("RectangleShape2D_2id46")
+
+[node name="FireBlast" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_2id46")
+volume_db = -48.18
+pitch_scale = 1.23
+
+[connection signal="animation_finished" from="AnimationPlayer" to="left" method="_on_animation_player_animation_finished"]

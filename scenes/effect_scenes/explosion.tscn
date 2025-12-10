@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://yp30aiecr3kq"]
+
+[ext_resource type="Texture2D" uid="uid://do2losnwcqked" path="res://assets/effects/circle_explosion.png" id="1_17npe"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_17npe"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nfeox"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 2.53, 0)
+velocity_pivot = Vector3(0, 3.75, 0)
+gravity = Vector3(0, -20, 0)
+anim_speed_max = 1.33
+anim_offset_max = 1.0
+turbulence_noise_strength = 11.84
+collision_use_scale = true
+sub_emitter_keep_velocity = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_17npe"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 1, 1)
+gravity = Vector3(0, 98, 0)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_17npe")
+position = Vector2(80, -2)
+texture = ExtResource("1_17npe")
+explosiveness = 0.54
+randomness = 0.3
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_nfeox")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+visible = false
+process_material = SubResource("ParticleProcessMaterial_17npe")

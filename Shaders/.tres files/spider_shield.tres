@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c8owflpnsst0i"]
+
+[ext_resource type="Shader" uid="uid://dklfj1rr6upoi" path="res://Shaders/outline.gdshader" id="1_r7if5"]
+
+[resource]
+shader = ExtResource("1_r7if5")
+shader_parameter/outline_color = Color(0.247228, 0.468233, 1, 1)
+shader_parameter/GLOW_active = true
+shader_parameter/glow_color = Color(0.389287, 0.389287, 0.389287, 1)
+shader_parameter/glow_power = 72.7
+shader_parameter/glow_shift = 3.6
+shader_parameter/glow_radius = 1.0
+shader_parameter/progress = 0.295
+shader_parameter/block_size = 3.0
