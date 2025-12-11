@@ -1,0 +1,169 @@
+[gd_scene load_steps=13 format=3 uid="uid://d0j2nmxab7kxf"]
+
+[ext_resource type="Script" uid="uid://dvl4ibyxf7k4k" path="res://scenes/enemies/scripts/bipedal/bipedal.gd" id="1_ptbch"]
+[ext_resource type="BehaviorTree" uid="uid://dk6bsl8iqc4uw" path="res://ai/trees/bipedal.tres" id="3_0mhj7"]
+[ext_resource type="Texture2D" uid="uid://dmo5x6rsetxfh" path="res://assets/enemies/bipedal/walk.png" id="3_ogaxb"]
+[ext_resource type="Script" uid="uid://dntc3c582m5w8" path="res://demo/agents/scripts/hitbox.gd" id="4_ogaxb"]
+[ext_resource type="Texture2D" uid="uid://crkvw20rvxpos" path="res://assets/enemies/bipedal/attack_1.png" id="4_ojp0q"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_0mhj7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ptbch"]
+size = Vector2(92.3372, 7.68823)
+
+[sub_resource type="Animation" id="Animation_ogaxb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/attack:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_iii0d"]
+resource_name = "attack"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/attack:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_0mhj7"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/walk:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ojp0q"]
+_data = {
+&"RESET": SubResource("Animation_ogaxb"),
+&"attack": SubResource("Animation_iii0d"),
+&"walk": SubResource("Animation_0mhj7")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ojp0q"]
+size = Vector2(52, 6.5)
+
+[node name="Bipedal" type="CharacterBody2D"]
+modulate = Color(0.8, 0.8, 0.8, 1)
+position = Vector2(1, -1)
+collision_layer = 4
+collision_mask = 1073741833
+script = ExtResource("1_ptbch")
+speed = 1000
+gravity = 1000
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("3_0mhj7")
+blackboard_plan = SubResource("BlackboardPlan_0mhj7")
+
+[node name="check_on_player" type="Node2D" parent="."]
+
+[node name="ray_right" type="RayCast2D" parent="check_on_player"]
+
+[node name="ray_left" type="RayCast2D" parent="check_on_player"]
+
+[node name="check_on_floor" type="Node2D" parent="."]
+
+[node name="ray_right" type="RayCast2D" parent="check_on_floor"]
+position = Vector2(17, 19)
+scale = Vector2(0.954761, 0.408697)
+target_position = Vector2(-1.72853e-06, 40)
+collision_mask = 26
+
+[node name="ray_left" type="RayCast2D" parent="check_on_floor"]
+position = Vector2(-22, 21)
+scale = Vector2(0.954761, 0.408697)
+target_position = Vector2(-1.72853e-06, 40)
+collision_mask = 26
+
+[node name="Sprites" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="walk" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("3_ogaxb")
+hframes = 7
+
+[node name="attack" type="Sprite2D" parent="Sprites"]
+visible = false
+texture = ExtResource("4_ojp0q")
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 5.5)
+scale = Vector2(0.563153, -6.89365)
+shape = SubResource("RectangleShape2D_ptbch")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ojp0q")
+}
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+navigation_layers = 2
+path_postprocessing = 1
+avoidance_enabled = true
+max_speed = 130.0
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+autostart = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+visible = false
+script = ExtResource("4_ogaxb")
+damage = 40.0
+knockback_strength = 100.0
+metadata/_custom_type_script = "uid://dntc3c582m5w8"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-2, 30.25)
+shape = SubResource("RectangleShape2D_ojp0q")
+debug_color = Color(0.983129, 0, 0.355887, 0.42)
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

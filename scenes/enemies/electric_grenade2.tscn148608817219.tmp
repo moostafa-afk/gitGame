@@ -1,0 +1,225 @@
+[gd_scene load_steps=12 format=3 uid="uid://dic2yohfqon8g"]
+
+[ext_resource type="Script" uid="uid://craa2pckprsaa" path="res://scenes/enemies/electric_grenade_scripts/electric_grenade_2.gd" id="1_hybqf"]
+[ext_resource type="Script" uid="uid://dfai131pn8s44" path="res://scenes/enemies/electric_grenade_scripts/line_right.gd" id="2_a8qw1"]
+[ext_resource type="Script" uid="uid://ck6cxsrntf64n" path="res://scenes/enemies/electric_grenade_scripts/line_left.gd" id="3_rlbyl"]
+[ext_resource type="Texture2D" uid="uid://ng84petxracw" path="res://ExampleProject/Orb.png" id="4_rlbyl"]
+[ext_resource type="Script" uid="uid://c4ijnrsukts11" path="res://scenes/enemies/line_up.gd" id="4_ytuei"]
+[ext_resource type="Script" uid="uid://b1xsfnv26uhbb" path="res://scenes/enemies/electric_grenade_scripts/line_down.gd" id="5_4c4y7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2xjg"]
+size = Vector2(18, 20)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_4c4y7"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_rlbyl"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ytuei"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_22d1g"]
+
+[node name="electric" type="Area2D"]
+z_index = 1
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_hybqf")
+
+[node name="coll_right" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_y2xjg")
+debug_color = Color(0.937125, 1.34766e-05, 0.629303, 0.42)
+
+[node name="coll_left" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_y2xjg")
+debug_color = Color(1.73271e-06, 0.648989, 0.161447, 0.42)
+
+[node name="raycasts" type="Node2D" parent="."]
+
+[node name="right" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-2.38419e-07, -9)
+scale = Vector2(2.57032, -0.948202)
+shape = SubResource("SegmentShape2D_4c4y7")
+target_position = Vector2(9.53674e-06, 3.65163)
+margin = 3.0
+collision_mask = 2
+
+[node name="left" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-4.76837e-07, -9)
+rotation = 3.14159
+scale = Vector2(-2.57032, 0.948202)
+shape = SubResource("SegmentShape2D_4c4y7")
+target_position = Vector2(9.53674e-06, 3.65163)
+margin = 3.0
+collision_mask = 2
+
+[node name="right2" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(4, 21)
+rotation = 3.14159
+scale = Vector2(-2.55306, 1.19426)
+shape = SubResource("SegmentShape2D_rlbyl")
+target_position = Vector2(0, 0)
+margin = 3.0
+collision_mask = 2
+
+[node name="left2" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-5, 21)
+rotation = 3.14159
+scale = Vector2(-2.57032, 0.948202)
+shape = SubResource("SegmentShape2D_4c4y7")
+target_position = Vector2(9.53674e-06, 3.65163)
+margin = 3.0
+collision_mask = 2
+
+[node name="up_down_right" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(11, -10)
+scale = Vector2(1.931, 2.011)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(5.17985, 0)
+margin = 3.0
+collision_mask = 2
+
+[node name="up_right" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(8, -11)
+scale = Vector2(1, 0.643349)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(13, 0)
+margin = 3.0
+collision_mask = 2
+
+[node name="down_right" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(5, 4)
+scale = Vector2(1.27294, 0.707945)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(11, 0)
+margin = 3.0
+collision_mask = 2
+
+[node name="up_down_left" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(-8, 9)
+rotation = 3.1452
+scale = Vector2(-2.279, 1.928)
+shape = SubResource("SegmentShape2D_22d1g")
+target_position = Vector2(-0.875987, -0.522415)
+margin = 3.0
+collision_mask = 2
+
+[node name="up_left" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-12, -9)
+scale = Vector2(1, 0.66385)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(3, 0)
+collision_mask = 2
+
+[node name="down_left" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-12, 3)
+scale = Vector2(1, 0.66385)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(3, 0)
+collision_mask = 2
+
+[node name="lines_thin" type="Node2D" parent="."]
+
+[node name="right_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+width = 0.7
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("2_a8qw1")
+offset_x = 17
+offset_y = -17
+max_increase = 31
+
+[node name="left_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+width = 0.7
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("3_rlbyl")
+offset_y = -17
+max_increase = 30
+
+[node name="up_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+width = 0.7
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("4_ytuei")
+offset_x = 15
+
+[node name="down_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+width = 0.7
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("5_4c4y7")
+offset_x = 15
+
+[node name="lines_thick" type="Node2D" parent="."]
+modulate = Color(0.8, 0.8, 0.8, 0.608)
+
+[node name="right_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+width = 1.5
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("2_a8qw1")
+Low = -4
+High = 4
+offset_x = 17
+offset_y = -17
+max_increase = 31
+
+[node name="left_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+width = 1.5
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("3_rlbyl")
+Low = -4
+High = 4
+offset_y = -17
+max_increase = 30
+
+[node name="up_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+width = 1.5
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("4_ytuei")
+Low = -4
+High = 4
+offset_x = 15
+
+[node name="down_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+width = 1.5
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("5_4c4y7")
+Low = -4
+High = 4
+offset_x = 15
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.392157, 0.768627, 0.92549, 1)
+scale = Vector2(0.353323, 0.353323)
+texture = ExtResource("4_rlbyl")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

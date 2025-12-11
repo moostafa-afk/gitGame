@@ -1,0 +1,289 @@
+{
+	"categories": [
+		{
+			"uuid": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"title": "Task",
+			"color": "73bfff"
+		},
+		{
+			"uuid": "6feb4be3-87f3-4e11-86d5-f88fe1891e3d",
+			"title": "New category",
+			"color": "8110cb"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "416f1f8c-2340-4e0e-ae38-94ed6b57372b",
+			"title": "Todo",
+			"tasks": [
+				"8ead815f-c9f9-48d5-b04c-685fdba61061",
+				"282aa725-67f0-4e9e-b602-05ed7f827a06",
+				"85405261-8a4f-4d3a-8490-a6188c2688c5",
+				"e7866f6e-c3e5-4777-af17-e13ca7a787d9",
+				"b2eb5dda-25a5-4dd2-88ab-0a5c396110ec",
+				"86046841-5705-4a1f-aa8c-99f33ed33010",
+				"ce81474c-6f05-4b34-8920-47ec1c81a0c5",
+				"2286f0ff-2d9f-46c8-bfd2-3df51555a7c9",
+				"26e9e3b1-52d3-435d-82ae-969c5caa9879",
+				"12233a56-4449-4479-9746-51934a7faa5f",
+				"09003992-7116-4238-a802-7aaf918a720c",
+				"1fb500dd-d99b-47d7-bf06-37ffe8478246",
+				"3565756e-ee27-49df-99d9-11a12107305a",
+				"8ad3dbf8-9763-42f3-ab91-44db9b247890",
+				"40c8978b-a679-4e4c-aea7-72d8f2e3243f",
+				"55f7dfda-467a-406e-b425-04e1b1158dbe",
+				"163f0152-d2cf-4261-a7a6-c64bf0b7c301",
+				"0c7a0c3f-fb7d-4c7a-8b37-48fa5cefe46a",
+				"1f2c9cf3-0c0c-44a6-93fa-d42470d601b3",
+				"8b8f4ee5-b077-4748-8916-d1723349b968",
+				"d6c3755e-952d-475e-a6c3-b2226326333a",
+				"fc58164d-c324-44c4-ad87-9d29122e6085",
+				"21d88a18-1191-4018-85eb-d9fc1dace696",
+				"f457bdb3-8a75-4875-ae7a-bcc5e4622903",
+				"b1b16f42-5bcf-4c65-a2a7-c4a19a23917e",
+				"260ee976-b2de-4cee-9dd8-fcdd474a5136"
+			]
+		},
+		{
+			"uuid": "371ff89f-a40c-4492-afaf-047cac326e0d",
+			"title": "Doing",
+			"tasks": [
+				"26f3945f-37d1-4899-8f08-af9d22a76e8e",
+				"d6730178-6d9c-4481-b1ce-fb1bcb64d753"
+			]
+		},
+		{
+			"uuid": "d1ee0908-d3c1-4d2e-941e-26cc79083f7b",
+			"title": "Done",
+			"tasks": [
+				"2da32b6b-271b-4080-a909-25508030dae3",
+				"9f8f6dfa-7fc7-44cd-83c7-3c429fc3a303"
+			]
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "8ead815f-c9f9-48d5-b04c-685fdba61061",
+			"title": "AI",
+			"description": "Gotta do some enemy ai\n",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "282aa725-67f0-4e9e-b602-05ed7f827a06",
+			"title": "New task",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "2da32b6b-271b-4080-a909-25508030dae3",
+			"title": "Coll player",
+			"description": "Gonna have to figure out how I want to change Coll shapes or sprites and the after maths in the scripts, this here is reminder of that to also note the line numbers I will have to change",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "9f8f6dfa-7fc7-44cd-83c7-3c429fc3a303",
+			"title": "Coll script",
+			"description": "Coll script manager\n",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "85405261-8a4f-4d3a-8490-a6188c2688c5",
+			"title": "Making verticality do more damage",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "e7866f6e-c3e5-4777-af17-e13ca7a787d9",
+			"title": "jumping level",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "b2eb5dda-25a5-4dd2-88ab-0a5c396110ec",
+			"title": "feints for U and enemy",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "86046841-5705-4a1f-aa8c-99f33ed33010",
+			"title": "grapple hhok",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "ce81474c-6f05-4b34-8920-47ec1c81a0c5",
+			"title": "super high jump",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "2286f0ff-2d9f-46c8-bfd2-3df51555a7c9",
+			"title": "enemies super fall damage",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "26e9e3b1-52d3-435d-82ae-969c5caa9879",
+			"title": "running up buildings that can be entered",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "12233a56-4449-4479-9746-51934a7faa5f",
+			"title": "things that fall on an enemy cause chain reaction",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "09003992-7116-4238-a802-7aaf918a720c",
+			"title": "might have to scrap pixel perfect collision shape idea",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "1fb500dd-d99b-47d7-bf06-37ffe8478246",
+			"title": "futuristic u shaped buildings",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "3565756e-ee27-49df-99d9-11a12107305a",
+			"title": "explode animation for character",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "8ad3dbf8-9763-42f3-ab91-44db9b247890",
+			"title": "rng enemies for some lvls",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "40c8978b-a679-4e4c-aea7-72d8f2e3243f",
+			"title": "colliding lvl with small safezones",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "55f7dfda-467a-406e-b425-04e1b1158dbe",
+			"title": "shoot or melee game?",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "163f0152-d2cf-4261-a7a6-c64bf0b7c301",
+			"title": "if melee make the enemies shot player has grapple hook on time down",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "26f3945f-37d1-4899-8f08-af9d22a76e8e",
+			"title": "PROBLEMO",
+			"description": "Within the state managers I'm working on I will need at times, to be able to play two states at once, and at times only one state, within my script I want to be able to play the jump state which is not yet created and any other state, but I don't want the same thing with the dashing state, any ideas??",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "0c7a0c3f-fb7d-4c7a-8b37-48fa5cefe46a",
+			"title": "The ground is a power source or is makes charging power ups easier",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "1f2c9cf3-0c0c-44a6-93fa-d42470d601b3",
+			"title": "energy sources can be in the air as well or on platforms",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "8b8f4ee5-b077-4748-8916-d1723349b968",
+			"title": "Have some moves u can only do on the ground",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "d6c3755e-952d-475e-a6c3-b2226326333a",
+			"title": "Have some moves on the enemy can only do on the ground",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "fc58164d-c324-44c4-ad87-9d29122e6085",
+			"title": "dash/tackle can only happen if Ur running",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "21d88a18-1191-4018-85eb-d9fc1dace696",
+			"title": "enemies can shoulder /bash / tackle u",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "f457bdb3-8a75-4875-ae7a-bcc5e4622903",
+			"title": "slow down after tackle",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "b1b16f42-5bcf-4c65-a2a7-c4a19a23917e",
+			"title": "Antigravity that flips the player for a limited time",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "260ee976-b2de-4cee-9dd8-fcdd474a5136",
+			"title": "friction for dash",
+			"description": "",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		},
+		{
+			"uuid": "d6730178-6d9c-4481-b1ce-fb1bcb64d753",
+			"title": "code",
+			"description": "\n            \n    #jump buffering for s jump\n    if not player.is_on_floor() and Input.is_action_just_pressed(\"jump\"):\n        %jump_buffer.start()\n        jump_buffered = true\n        print(\"1\")\n        print(jump_buffered)\n\n    if player.is_on_floor() and (jump_buffered) :\n            %JumpTimer.start()\n            jump_buffered = false\n        \n    if Input.is_action_just_released(\"jump\") or jump_buffered:\n        %JumpTimer.stop()\n        print(\"4\")\n        if is_held:\n            set_substate(\"LJump\")\n            is_held = false   \n        elif %Move.H_Jump:\n          set_substate(\"HJump\")\n        else:            \n          set_substate(\"SJump\")\n            ",
+			"category": "98ac800c-ccdd-4e1b-bded-8763a389cf33",
+			"steps": []
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"416f1f8c-2340-4e0e-ae38-94ed6b57372b"
+			],
+			[
+				"371ff89f-a40c-4492-afaf-047cac326e0d"
+			],
+			[
+				"d1ee0908-d3c1-4d2e-941e-26cc79083f7b"
+			]
+		]
+	}
+}

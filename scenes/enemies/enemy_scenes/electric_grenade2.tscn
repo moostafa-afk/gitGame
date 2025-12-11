@@ -1,0 +1,595 @@
+[gd_scene load_steps=28 format=3 uid="uid://dic2yohfqon8g"]
+
+[ext_resource type="Script" uid="uid://craa2pckprsaa" path="res://scenes/enemies/scripts/electric_grenade_scripts/electric_grenade_2.gd" id="1_hybqf"]
+[ext_resource type="Script" uid="uid://dfai131pn8s44" path="res://scenes/enemies/scripts/electric_grenade_scripts/line_right.gd" id="2_a8qw1"]
+[ext_resource type="Script" uid="uid://ck6cxsrntf64n" path="res://scenes/enemies/scripts/electric_grenade_scripts/line_left.gd" id="3_rlbyl"]
+[ext_resource type="Script" uid="uid://cha2c1u5375u" path="res://scenes/enemies/scripts/electric_grenade_scripts/right_2_line.gd" id="4_6eqo6"]
+[ext_resource type="Shader" uid="uid://dwn1kdpp7ctwt" path="res://Shaders/checker_board.gdshader" id="4_hhvnu"]
+[ext_resource type="Texture2D" uid="uid://ng84petxracw" path="res://ExampleProject/Orb.png" id="4_rlbyl"]
+[ext_resource type="Script" uid="uid://eviefwvxg3ra" path="res://scenes/enemies/scripts/electric_grenade_scripts/left_2_line.gd" id="5_fec5n"]
+[ext_resource type="Script" uid="uid://d0teoixar8bj4" path="res://scenes/enemies/scripts/electric_grenade_scripts/line_up_2.gd" id="6_22d1g"]
+[ext_resource type="Script" uid="uid://d24n0fqa088p7" path="res://scenes/enemies/scripts/electric_grenade_scripts/line_right_most_side.gd" id="7_2o5wc"]
+[ext_resource type="Script" uid="uid://cu0t2vhxssbqv" path="res://scenes/enemies/scripts/electric_grenade_scripts/left_line_up.gd" id="7_vubas"]
+[ext_resource type="Script" uid="uid://5pghv2fswdau" path="res://scenes/enemies/scripts/electric_grenade_scripts/left_line_down.gd" id="8_6eqo6"]
+[ext_resource type="Script" uid="uid://dgyiguobj62gp" path="res://scenes/enemies/scripts/electric_grenade_scripts/line_left_most_side.gd" id="8_vubas"]
+[ext_resource type="Material" uid="uid://c6e8uettfdu0c" path="res://Shaders/.tres files/electric_grenade2.tres" id="12_jqamo"]
+[ext_resource type="AudioStream" uid="uid://dx8gj6o2y0w4b" path="res://sound_effects/electric_2.wav" id="12_ta43q"]
+[ext_resource type="Script" uid="uid://bafwihduw56kg" path="res://sound_effects/pitch_randomizer.gd" id="14_hhvnu"]
+[ext_resource type="Material" uid="uid://cksma3wkkv7ko" path="res://Shaders/particle_presets/10000 pieces.tres" id="15_2d6yk"]
+[ext_resource type="Texture2D" uid="uid://vnchx5f5wmsm" path="res://assets/effects/Electric_ball.png" id="16_cb7fo"]
+[ext_resource type="Material" uid="uid://c2l3q7j41m2i7" path="res://Shaders/particle_presets/anim_time_hframes.tres" id="17_iiq5x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2xjg"]
+size = Vector2(18, 20)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_4c4y7"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2o5wc"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ytuei"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2d6yk"]
+shader = ExtResource("4_hhvnu")
+shader_parameter/speed = 0.3
+shader_parameter/alpha = 1.0
+shader_parameter/line_color = Color(0.027451, 1, 1, 0.498039)
+shader_parameter/checker_size = Vector2(1000, 1000)
+
+[sub_resource type="GDScript" id="GDScript_22d1g"]
+script/source = "extends Line2D
+
+var time : float = 0.0
+@export var end_time:= .02
+@export var Low : =-15
+@export var High : =15
+
+var x_pos :=0
+var y_pos :=0
+var point := Vector2.ZERO
+var point_2 := Vector2.ZERO
+@export var offset_x := 0
+@export var offset_y := 0
+@export var max_increase := 10
+var just_collided : = false
+var normal_increase := 0
+var increase:= 0
+
+
+func _physics_process(delta: float) -> void:
+    time += delta
+    if time >= end_time:
+        time = 0
+        for i in points.size():
+            point = points[i]
+## We add offset_x to Low and High to adjust for the difference in x coordinate
+            point.x = randi_range(Low + offset_x, High + offset_x)
+            points[i] = point
+
+## (MINUS - normal increase) to constantly add points UP
+    point = Vector2(x_pos , (y_pos - normal_increase))
+
+## Point is outside the if statemnts cuz its an argument that constantly needs to be checked for duplicates
+## Just_collided is a flag that will deterine its first location, increase will add the rest  of the points
+    if %up_right.is_colliding() :
+        if just_collided == false:
+## X and Y coordinates are set here, to determine the beginning posiitons only
+           x_pos = (%up_right.position.x + offset_x)
+           y_pos = (%up_right.position.y + offset_y)
+           just_collided = true
+        
+        
+## Increase starts here
+        elif is_duplicate(point) == false: 
+            normal_increase += 2
+            add_point(point)
+            
+## this will decide the max_increase after the raycast stops colliding
+    elif not %up_right.is_colliding() and just_collided == true:
+            max_point()
+    
+func max_point():
+    if increase <= max_increase:
+        increase += 2
+        point_2 = Vector2(point.x, point.y - increase)
+        add_point(point_2)
+   
+func is_duplicate(new_point: Vector2) -> bool:
+    for i in range(points.size()):
+        if new_point.y == points[i].y:
+            return true
+    return false
+    
+    
+    
+"
+
+[sub_resource type="GDScript" id="GDScript_2o5wc"]
+script/source = "extends Line2D
+
+var time : float = 0.0
+@export var end_time:= .02
+@export var Low : =-15
+@export var High : =15
+
+var x_pos :=0
+var y_pos :=0
+var point := Vector2.ZERO
+var point_2 := Vector2.ZERO
+@export var offset_x := 0
+@export var offset_y := 0
+@export var max_increase := 10
+var just_collided : = false
+var normal_increase := 0
+var increase:= 0
+
+func _physics_process(delta: float) -> void:
+    time += delta
+    if time >= end_time:
+        time = 0
+        for i in points.size():
+            point = points[i]
+## We add offset_x to Low and High to adjust for the difference in x coordinate
+            point.x = randi_range(Low + offset_x, High + offset_x)
+            points[i] = point
+            
+## (Plus - normal increase) to constantly add points down
+    point = Vector2(x_pos  , (y_pos  + normal_increase))
+
+## Point is outside the if statemnts cuz its an argument that constantly needs to be checked for duplicates
+## Just_collided is a flag that will deterine its first location, increase will add the rest  of the points
+    if %down_right.is_colliding():
+        if just_collided == false:
+## X and Y coordinates are set here, to determine the beginning posiitons only
+           x_pos = (%down_right.position.x + offset_x)
+           y_pos = (%down_right.position.y + offset_y)
+           just_collided = true
+        
+## Increase starts here
+        elif is_duplicate(point) == false: 
+            normal_increase += 2
+            add_point(point)
+
+
+## this will decide the max_increase after the raycast stops colliding
+    elif not %down_right.is_colliding() and just_collided == true:
+            max_point()
+    
+func max_point():
+    if increase <= max_increase:
+        increase += 2
+        point_2 = Vector2(point.x, point.y + increase)
+        add_point(point_2)
+   
+func is_duplicate(new_point: Vector2) -> bool:
+    for i in range(points.size()):
+        if new_point.y == points[i].y:
+            return true
+    return false
+    
+    
+    
+ 
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jqamo"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_iiq5x"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="electric" type="Area2D" groups=["electric"]]
+z_index = 1
+scale = Vector2(1.00254, 1)
+collision_layer = 4
+collision_mask = 27
+script = ExtResource("1_hybqf")
+damage = 0.1
+
+[node name="coll_right" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_y2xjg")
+debug_color = Color(0.937125, 1.34766e-05, 0.629303, 0.42)
+
+[node name="coll_left" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_y2xjg")
+debug_color = Color(1.73271e-06, 0.648989, 0.161447, 0.42)
+
+[node name="right_left_rays" type="Node2D" parent="."]
+
+[node name="right" type="ShapeCast2D" parent="right_left_rays"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -13)
+scale = Vector2(12.9066, -1.46412)
+shape = SubResource("SegmentShape2D_4c4y7")
+target_position = Vector2(9.53674e-06, 3.65163)
+collision_mask = 16
+
+[node name="left" type="ShapeCast2D" parent="right_left_rays"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1.1921e-07, -13)
+scale = Vector2(12.9066, -1.46412)
+shape = SubResource("SegmentShape2D_4c4y7")
+target_position = Vector2(9.53674e-06, 3.65163)
+collision_mask = 16
+
+[node name="right_2" type="ShapeCast2D" parent="right_left_rays"]
+unique_name_in_owner = true
+position = Vector2(-1.42109e-14, 12)
+rotation = 3.14159
+scale = Vector2(12.9066, -1.46412)
+shape = SubResource("SegmentShape2D_4c4y7")
+target_position = Vector2(9.53674e-06, 3.65163)
+collision_mask = 8
+
+[node name="left_2" type="ShapeCast2D" parent="right_left_rays"]
+unique_name_in_owner = true
+position = Vector2(1.1921e-07, 12)
+rotation = 3.14159
+scale = Vector2(12.9066, -1.46412)
+shape = SubResource("SegmentShape2D_4c4y7")
+target_position = Vector2(9.53674e-06, 3.65163)
+collision_mask = 8
+
+[node name="raycasts" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="up" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(-1.19675e-07, -9)
+rotation = 3.14705
+scale = Vector2(14.3547, 0.941795)
+shape = SubResource("SegmentShape2D_2o5wc")
+target_position = Vector2(-0.00144291, 7.90923)
+collision_mask = 16
+
+[node name="up_down_right" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(11, -13)
+scale = Vector2(1.32145, 2.76072)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(5.17985, 0)
+collision_mask = 16
+
+[node name="up_right" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(8, -10)
+scale = Vector2(1, 0.643349)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(13, 0)
+collision_mask = 16
+
+[node name="down_right" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(5, 3)
+scale = Vector2(1.27294, 0.707945)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(11, 0)
+collision_mask = 16
+
+[node name="up_down_left" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(-12, -13)
+rotation = 3.14159
+scale = Vector2(1.99198, -2.73529)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(5.17866, -1.43051e-05)
+collision_mask = 16
+
+[node name="up_left" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(-16, -10)
+scale = Vector2(2.14834, 0.529618)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(3, 0)
+collision_mask = 16
+
+[node name="down_left" type="ShapeCast2D" parent="raycasts"]
+unique_name_in_owner = true
+position = Vector2(-10, 10)
+scale = Vector2(-2.03413, -0.63172)
+shape = SubResource("SegmentShape2D_ytuei")
+target_position = Vector2(3, 0)
+collision_mask = 16
+
+[node name="lines_thin" type="Node2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.581)
+position = Vector2(-0.997466, 0)
+
+[node name="right_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("2_a8qw1")
+end_time = 0.05
+
+[node name="left_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("3_rlbyl")
+end_time = 0.05
+offset_y = -17
+max_increase = 30
+
+[node name="right_2_thin" type="Line2D" parent="lines_thin"]
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("4_6eqo6")
+end_time = 0.05
+offset_y = 20
+
+[node name="left_2_thin" type="Line2D" parent="lines_thin"]
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(-4.17233e-07, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("5_fec5n")
+end_time = 0.05
+offset_y = 20
+
+[node name="up_2_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("6_22d1g")
+end_time = 0.05
+
+[node name="right_side_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("7_2o5wc")
+end_time = 0.05
+offset_y = -5
+
+[node name="right_up_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = SubResource("GDScript_22d1g")
+end_time = 0.05
+offset_x = 15
+
+[node name="right_down_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = SubResource("GDScript_2o5wc")
+end_time = 0.05
+offset_x = 15
+
+[node name="left_side_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("8_vubas")
+end_time = 0.05
+offset_x = -10
+offset_y = -5
+
+[node name="left_up_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+points = PackedVector2Array(-30.9215, -9)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("7_vubas")
+end_time = 0.05
+offset_x = -10
+
+[node name="left_down_thin" type="Line2D" parent="lines_thin"]
+unique_name_in_owner = true
+texture_filter = 4
+material = SubResource("ShaderMaterial_2d6yk")
+position = Vector2(0, -1)
+width = 0.4
+default_color = Color(0.027451, 1, 1, 1)
+script = ExtResource("8_6eqo6")
+end_time = 0.05
+offset_x = -10
+
+[node name="lines_thick" type="Node2D" parent="."]
+
+[node name="right_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("2_a8qw1")
+Low = -4
+High = 4
+
+[node name="left_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("3_rlbyl")
+Low = -4
+High = 4
+offset_y = -17
+max_increase = 30
+
+[node name="right_2_thick" type="Line2D" parent="lines_thick"]
+material = ExtResource("12_jqamo")
+position = Vector2(-3.98986, -1)
+scale = Vector2(1, 0.999194)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("4_6eqo6")
+Low = -4
+High = 4
+offset_y = 20
+
+[node name="left_2_thick" type="Line2D" parent="lines_thick"]
+material = ExtResource("12_jqamo")
+position = Vector2(-0.997466, 0)
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("5_fec5n")
+Low = -4
+High = 4
+offset_y = 20
+
+[node name="right_side_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(0.966403, 1.03313)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("7_2o5wc")
+Low = -4
+High = 4
+offset_y = -5
+
+[node name="right_up_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = SubResource("GDScript_22d1g")
+Low = -4
+High = 4
+offset_x = 15
+
+[node name="right_down_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = SubResource("GDScript_2o5wc")
+Low = -4
+High = 4
+offset_x = 15
+
+[node name="up_2_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("6_22d1g")
+Low = -4
+High = 4
+
+[node name="left_side_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("8_vubas")
+Low = -4
+High = 4
+offset_x = -10
+offset_y = -5
+
+[node name="left_up_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("7_vubas")
+Low = -4
+High = 4
+offset_x = -10
+
+[node name="left_down_thick" type="Line2D" parent="lines_thick"]
+unique_name_in_owner = true
+material = ExtResource("12_jqamo")
+scale = Vector2(1, 0.999597)
+width = 1.4
+default_color = Color(0.027, 1, 1, 1)
+script = ExtResource("8_6eqo6")
+Low = -4
+High = 4
+offset_x = -10
+max_increase = 20
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+self_modulate = Color(0, 1, 0.7, 1)
+material = SubResource("ShaderMaterial_jqamo")
+scale = Vector2(0.353323, 0.353323)
+texture = ExtResource("4_rlbyl")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 3.0
+one_shot = true
+
+[node name="change_color" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.5
+autostart = true
+
+[node name="electric_sfx" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("12_ta43q")
+volume_db = -30.702
+script = ExtResource("14_hhvnu")
+low = 0.95
+high = 1.05
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+position = Vector2(151.615, -60)
+amount = 100000
+lifetime = 5.0
+explosiveness = 1.0
+process_material = ExtResource("15_2d6yk")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+modulate = Color(0.9, 0.9, 1, 1)
+material = SubResource("CanvasItemMaterial_iiq5x")
+scale = Vector2(0.938182, 0.239172)
+amount = 2
+texture = ExtResource("16_cb7fo")
+lifetime = 0.8
+explosiveness = 0.31
+process_material = ExtResource("17_iiq5x")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="change_color" to="." method="_on_change_color_timeout"]

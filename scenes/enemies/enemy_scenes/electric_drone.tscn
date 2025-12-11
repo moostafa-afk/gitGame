@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6xtiso5mb481"]
+
+[ext_resource type="Script" uid="uid://k0pbucgikv38" path="res://scenes/enemies/scripts/drone/drone.gd" id="1_0qiw4"]
+[ext_resource type="Texture2D" uid="uid://brp2okbdgl5ug" path="res://assets/enemies/egg turret/Shoot/shoot4.png" id="2_1ewv6"]
+[ext_resource type="BehaviorTree" uid="uid://xx85xvj5fm8a" path="res://ai/trees/Electric_Drone.tres" id="3_ut4b0"]
+
+[sub_resource type="Animation" id="Animation_sm4lv"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_but12"]
+resource_name = "laser"
+length = 0.3
+loop_mode = 1
+step = 0.1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dgopl"]
+_data = {
+&"RESET": SubResource("Animation_sm4lv"),
+&"laser": SubResource("Animation_but12")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ckxy"]
+radius = 12.6457
+height = 57.2795
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_6lkfh"]
+
+[node name="electric_drone" type="CharacterBody2D"]
+scale = Vector2(-1, 1)
+collision_layer = 4
+wall_min_slide_angle = 0.0
+script = ExtResource("1_0qiw4")
+
+[node name="Sprites" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("2_1ewv6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dgopl")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
+scale = Vector2(1.1071, 0.942745)
+shape = SubResource("CapsuleShape2D_6ckxy")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+autostart = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 50.0
+target_desired_distance = 100.0
+path_max_distance = 200.0
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 25.0
+max_speed = 200.0
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("3_ut4b0")
+blackboard_plan = SubResource("BlackboardPlan_6lkfh")

@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbie3b84qewe"]
+
+[ext_resource type="Script" uid="uid://cg3h2wvg4hlm0" path="res://scenes/block/block_timer.gd" id="1_vpped"]
+[ext_resource type="Texture2D" uid="uid://1lcg2jc2hpr5" path="res://assets/backgoround/Block.png" id="2_rfxuc"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vpped"]
+texture = ExtResource("2_rfxuc")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -3.59717, 8, -3.95689, 8, 3.77703, -8, 3.77703)
+0:0/0/physics_layer_0/polygon_0/one_way = true
+
+[sub_resource type="TileSet" id="TileSet_rfxuc"]
+physics_layer_0/collision_layer = 17
+sources/0 = SubResource("TileSetAtlasSource_vpped")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpped"]
+size = Vector2(0.28553, 17.6806)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_vpped"]
+
+[node name="blocks" type="TileMapLayer" groups=["blocks"]]
+modulate = Color(0.415686, 1, 1, 1)
+tile_map_data = PackedByteArray(0, 0, 254, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_rfxuc")
+script = ExtResource("1_vpped")
+
+[node name="block_remove" type="Timer" parent="."]
+unique_name_in_owner = true
+process_priority = 1
+process_callback = 0
+wait_time = 10.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(6.81571, 0.373319)
+collision_layer = 16
+
+[node name="coll_shape" type="CollisionShape2D" parent="Area2D"]
+unique_name_in_owner = true
+position = Vector2(5.96046e-08, -3.8147e-06)
+scale = Vector2(36.9973, 1.21203)
+shape = SubResource("RectangleShape2D_vpped")
+
+[node name="left" type="ShapeCast2D" parent="Area2D"]
+unique_name_in_owner = true
+position = Vector2(-4.69504, -21.4294)
+scale = Vector2(-0.64, 5.019)
+shape = SubResource("SegmentShape2D_vpped")
+target_position = Vector2(12.838, 0)
+collision_mask = 6
+
+[node name="right" type="ShapeCast2D" parent="Area2D"]
+unique_name_in_owner = true
+position = Vector2(4.69504, 21.4294)
+rotation = 3.14159
+scale = Vector2(-0.64, 5.019)
+shape = SubResource("SegmentShape2D_vpped")
+target_position = Vector2(12.838, 0)
+collision_mask = 6
+
+[node name="add_right" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.3
+
+[connection signal="timeout" from="block_remove" to="." method="_on_block_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="add_right" to="." method="_on_add_block_timer_timeout"]

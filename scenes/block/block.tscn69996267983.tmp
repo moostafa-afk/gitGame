@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=4 uid="uid://bbie3b84qewe"]
+
+[ext_resource type="Script" uid="uid://cg3h2wvg4hlm0" path="res://scenes/block/block_timer.gd" id="1_vpped"]
+[ext_resource type="Texture2D" uid="uid://1lcg2jc2hpr5" path="res://assets/backgoround/Block.png" id="2_rfxuc"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vpped"]
+texture = ExtResource("2_rfxuc")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -3.59717, 8, -3.95689, 8, 3.77703, -8, 3.77703)
+0:0/0/physics_layer_0/polygon_0/one_way = true
+
+[sub_resource type="TileSet" id="TileSet_rfxuc"]
+physics_layer_0/collision_layer = 17
+physics_layer_0/collision_mask = 5
+sources/0 = SubResource("TileSetAtlasSource_vpped")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3gtdk"]
+radius = 0.322074
+height = 28.7692
+
+[node name="TileMapLayer" type="TileMapLayer" groups=["blocks"]]
+modulate = Color(0.415686, 1, 1, 1)
+tile_map_data = PackedByteArray("AAD8////AAAAAAAAAAD9////AAAAAAAAAAD+////AAAAAAAAAAD/////AAAAAAAAAAAAAP//AAAAAAAAAAABAP//AAAAAAAAAAACAP//AAAAAAAAAAADAP//AAAAAAAAAAAEAP//AAAAAAAAAAD7////AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_rfxuc")
+script = ExtResource("1_vpped")
+
+[node name="block_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_priority = 1
+process_callback = 0
+wait_time = 4.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(6.81571, 0.373319)
+collision_layer = 16
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.159556, -3.81271)
+scale = Vector2(36.9973, 1.21203)
+shape = SubResource("CapsuleShape2D_3gtdk")
+
+[connection signal="timeout" from="block_timer" to="." method="_on_block_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

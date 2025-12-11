@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bfj0jtqp3tsab"]
+
+[ext_resource type="Shader" uid="uid://csyo878b4sn8d" path="res://Shaders/replace_color._W_glowgdshader.gdshader" id="1_pcma1"]
+
+[resource]
+shader = ExtResource("1_pcma1")
+shader_parameter/target_color = Color(0.109804, 0.141176, 0.254902, 1)
+shader_parameter/replce_color = Color(0.204247, 0.493918, 0.659584, 1)
+shader_parameter/tolerance = 0.064
+shader_parameter/target_color_2 = Color(0.192157, 0.247059, 0.423529, 1)
+shader_parameter/replce_color_2 = Color(0.00540085, 0.454871, 0.8684, 1)
+shader_parameter/tolerance_2 = 0.152
+shader_parameter/target_color_3 = Color(0.776471, 0.572549, 0.529412, 1)
+shader_parameter/replce_color_3 = Color(0.124266, 0.376566, 0.468763, 1)
+shader_parameter/tolerance_3 = 0.0
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_power = 0.0
+shader_parameter/glow_shift = 1.0
+shader_parameter/glow_radius = 1.0

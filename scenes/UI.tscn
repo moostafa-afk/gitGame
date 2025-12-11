@@ -1,0 +1,184 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhhnxy08ch6hb"]
+
+[ext_resource type="Texture2D" uid="uid://dl1vkm4yyxail" path="res://assets/UI/left.png" id="1_dj8aq"]
+[ext_resource type="Texture2D" uid="uid://c6q7u0fo4bqlc" path="res://assets/UI/right.png" id="3_5en4g"]
+[ext_resource type="Script" uid="uid://beu5ewlwrkqf4" path="res://UI/health_bar.gd" id="4_75u2n"]
+[ext_resource type="Script" uid="uid://5dn0sphvugm6" path="res://UI/ui.gd" id="4_ua6yw"]
+[ext_resource type="Shader" uid="uid://dg41t17tku3sk" path="res://Shaders/my_glow.gdshader" id="4_w7enk"]
+[ext_resource type="Script" uid="uid://87bgcxmxm8ea" path="res://UI/white_bar.gd" id="5_75u2n"]
+[ext_resource type="Texture2D" uid="uid://dw4uy4wjnwo4w" path="res://assets/UI/health bar empty 2.png" id="6_xpksx"]
+[ext_resource type="Texture2D" uid="uid://2omws0cu5u50" path="res://assets/UI/health.png" id="7_24e4x"]
+[ext_resource type="Texture2D" uid="uid://74jti5ys4kry" path="res://assets/UI/red_hit.png" id="7_ukj8e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aputy"]
+shader = ExtResource("4_w7enk")
+shader_parameter/GLOW_active = true
+shader_parameter/glow_color = Color(0.606, 0.943, 0.811, 0.017)
+shader_parameter/glow_power = 56.0
+shader_parameter/glow_shift = 1.3
+shader_parameter/glow_radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7enk"]
+shader = ExtResource("4_w7enk")
+shader_parameter/GLOW_active = true
+shader_parameter/glow_color = Color(0.866, 0, 0.166, 0.558)
+shader_parameter/glow_power = 2.1
+shader_parameter/glow_shift = 8.3
+shader_parameter/glow_radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ukj8e"]
+shader = ExtResource("4_w7enk")
+shader_parameter/GLOW_active = true
+shader_parameter/glow_color = Color(0.048, 0.217, 0.2, 0.177)
+shader_parameter/glow_power = 45.0
+shader_parameter/glow_shift = 1.9
+shader_parameter/glow_radius = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("4_ua6yw")
+
+[node name="Full_Rect" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Full_Rect"]
+layout_mode = 1
+anchor_left = 0.842188
+anchor_top = 0.855556
+anchor_right = 0.997187
+anchor_bottom = 0.855556
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(38, -79)
+metadata/_edit_use_anchors_ = true
+
+[node name="jump" type="TouchScreenButton" parent="Full_Rect/Control"]
+rotation = -1.5708
+scale = Vector2(3, 3)
+skew = -0.575959
+texture_normal = ExtResource("1_dj8aq")
+action = "super_jump"
+
+[node name="Control2" type="Control" parent="Full_Rect"]
+layout_mode = 1
+anchor_left = 1.213
+anchor_top = 0.789
+anchor_right = 1.213
+anchor_bottom = 0.789
+offset_left = -264.32
+offset_top = -16.04
+offset_right = -264.32
+offset_bottom = -16.04
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(76, 40)
+
+[node name="dash" type="TouchScreenButton" parent="Full_Rect/Control2"]
+scale = Vector2(3, 3)
+skew = -0.584685
+texture_normal = ExtResource("1_dj8aq")
+action = "dash"
+
+[node name="Control3" type="Control" parent="Full_Rect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 207.0
+offset_top = 335.0
+offset_right = 207.0
+offset_bottom = 335.0
+grow_vertical = 0
+pivot_offset = Vector2(-152, -394)
+
+[node name="left" type="TouchScreenButton" parent="Full_Rect/Control3"]
+unique_name_in_owner = true
+position = Vector2(-103, -348)
+rotation = -3.14159
+scale = Vector2(3, 3)
+texture_normal = ExtResource("1_dj8aq")
+action = "left"
+
+[node name="Control4" type="Control" parent="Full_Rect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_top = -99.0
+offset_right = 113.0
+offset_bottom = -59.0
+grow_vertical = 0
+pivot_offset = Vector2(56, 47)
+
+[node name="right" type="TouchScreenButton" parent="Full_Rect/Control4"]
+unique_name_in_owner = true
+texture_filter = 1
+scale = Vector2(3, 3)
+texture_normal = ExtResource("1_dj8aq")
+action = "right"
+
+[node name="Control5" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -105.0
+offset_top = -128.0
+offset_right = -65.0
+offset_bottom = -128.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(-34, 63)
+
+[node name="block" type="TouchScreenButton" parent="Control5"]
+rotation = 1.5708
+scale = Vector2(3, 2.49738)
+skew = -0.279253
+texture_normal = ExtResource("3_5en4g")
+action = "block"
+
+[node name="anim_red_bar" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.3
+
+[node name="Health_bar" type="TextureProgressBar" parent="."]
+material = SubResource("ShaderMaterial_aputy")
+offset_right = 355.0
+offset_bottom = 50.0
+value = 100.0
+texture_progress = ExtResource("7_24e4x")
+script = ExtResource("4_75u2n")
+
+[node name="Red_bar" type="TextureProgressBar" parent="."]
+z_index = -1
+material = SubResource("ShaderMaterial_w7enk")
+offset_right = 355.0
+offset_bottom = 50.0
+value = 100.0
+texture_progress = ExtResource("7_ukj8e")
+script = ExtResource("5_75u2n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ukj8e")
+position = Vector2(176, 24)
+texture = ExtResource("6_xpksx")
+
+[connection signal="pressed" from="Full_Rect/Control/jump" to="." method="_on_jump_pressed"]
+[connection signal="released" from="Full_Rect/Control/jump" to="." method="_on_jump_released"]
+[connection signal="pressed" from="Full_Rect/Control2/dash" to="." method="_on_dash_pressed"]
+[connection signal="released" from="Full_Rect/Control2/dash" to="." method="_on_dash_released"]
+[connection signal="pressed" from="Full_Rect/Control3/left" to="." method="_on_left_pressed"]
+[connection signal="released" from="Full_Rect/Control3/left" to="." method="_on_left_released"]
+[connection signal="pressed" from="Full_Rect/Control4/right" to="." method="_on_right_pressed"]
+[connection signal="released" from="Full_Rect/Control4/right" to="." method="_on_right_released"]
+[connection signal="timeout" from="anim_red_bar" to="Red_bar" method="_on_anim_red_bar_timeout"]

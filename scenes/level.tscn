@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpw6lqtkvys7t"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a4vqp"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(540.5, 362.5)
+scale = Vector2(13.6582, 9.20253)
+texture = SubResource("CompressedTexture2D_a4vqp")

@@ -1,0 +1,33 @@
+[gd_resource type="BehaviorTree" load_steps=12 format=3 uid="uid://bu2y7rk1ojl78"]
+
+[ext_resource type="Script" uid="uid://cg8gpkokhvmln" path="res://ai/tasks/electric_drone/Check distance.gd" id="1_qm8mx"]
+[ext_resource type="Script" uid="uid://bdxrbydgsa3sd" path="res://ai/tasks/drone/Shoot _laser.gd" id="2_ru8aw"]
+[ext_resource type="Script" uid="uid://biwlvixg4314n" path="res://ai/tasks/drone/player_detected.gd" id="3_ru8aw"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ibpmj"]
+
+[sub_resource type="BTAction" id="BTAction_g1p1m"]
+script = ExtResource("1_qm8mx")
+min_distance = 500
+
+[sub_resource type="BTSequence" id="BTSequence_g3doo"]
+custom_name = "Distance is right"
+children = [SubResource("BTAction_g1p1m")]
+
+[sub_resource type="BTWait" id="BTWait_qm8mx"]
+
+[sub_resource type="BTAction" id="BTAction_ibpmj"]
+script = ExtResource("3_ru8aw")
+
+[sub_resource type="BTAction" id="BTAction_ru8aw"]
+script = ExtResource("2_ru8aw")
+
+[sub_resource type="BTSequence" id="BTSequence_ru8aw"]
+children = [SubResource("BTWait_qm8mx"), SubResource("BTAction_ibpmj"), SubResource("BTAction_ru8aw")]
+
+[sub_resource type="BTSelector" id="BTSelector_u6pc1"]
+children = [SubResource("BTSequence_g3doo"), SubResource("BTSequence_ru8aw")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ibpmj")
+root_task = SubResource("BTSelector_u6pc1")

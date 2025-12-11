@@ -1,0 +1,47 @@
+[gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://xx85xvj5fm8a"]
+
+[ext_resource type="Script" uid="uid://cg8gpkokhvmln" path="res://ai/tasks/electric_drone/Check distance.gd" id="1_hkal3"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_qcspj"]
+
+[sub_resource type="BTAction" id="BTAction_hkal3"]
+script = ExtResource("1_hkal3")
+min_distance = 500
+
+[sub_resource type="BTSequence" id="BTSequence_wk2st"]
+custom_name = "Distance is right"
+children = [SubResource("BTAction_hkal3")]
+
+[sub_resource type="BTWait" id="BTWait_i4ll8"]
+duration = 3.0
+
+[sub_resource type="GDScript" id="GDScript_pei1h"]
+script/source = "extends BTAction
+
+func _enter() -> void:
+
+## Instance of the laser here
+    var load_laser: PackedScene = preload(\"res://scenes/enemies/electric_grenade2.tscn\")
+    var inst = load_laser.instantiate()
+    inst.global_position = agent.global_position
+
+## Since add child is only possible in node here is the alternative
+    agent.get_tree().current_scene.add_child(inst)
+## Makes the laser start from the drone
+
+
+     
+"
+
+[sub_resource type="BTAction" id="BTAction_wk2st"]
+script = SubResource("GDScript_pei1h")
+
+[sub_resource type="BTSequence" id="BTSequence_2k6iq"]
+children = [SubResource("BTWait_i4ll8"), SubResource("BTAction_wk2st")]
+
+[sub_resource type="BTSelector" id="BTSelector_kqvxa"]
+children = [SubResource("BTSequence_wk2st"), SubResource("BTSequence_2k6iq")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_qcspj")
+root_task = SubResource("BTSelector_kqvxa")

@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://du6yl5tkslor1"]
+
+[ext_resource type="Script" uid="uid://blg023xp0ldlj" path="res://scenes/enemies/scripts/drone/laser.gd" id="1_sxxrs"]
+[ext_resource type="Texture2D" uid="uid://dlxmfqdt4v3ki" path="res://assets/enemies/egg turret/Shoot/new_laser.png" id="1_vpegx"]
+[ext_resource type="Shader" uid="uid://dg41t17tku3sk" path="res://Shaders/my_glow.gdshader" id="2_l5c32"]
+[ext_resource type="Script" uid="uid://bv81ubq8jy5b7" path="res://laser_queue.gd" id="3_vpegx"]
+[ext_resource type="AudioStream" uid="uid://c2ch18sm6jpxh" path="res://sound_effects/laser shot.wav" id="5_0h3w5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0h3w5"]
+shader = ExtResource("2_l5c32")
+shader_parameter/GLOW_active = true
+shader_parameter/glow_color = Color(0.804553, 0.341859, 0.560358, 1)
+shader_parameter/glow_power = 3.0
+shader_parameter/glow_shift = 0.1
+shader_parameter/glow_radius = 13.0
+
+[sub_resource type="Animation" id="Animation_vpegx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_sxxrs"]
+resource_name = "laser_shoot"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l5c32"]
+_data = {
+&"RESET": SubResource("Animation_vpegx"),
+&"laser_shoot": SubResource("Animation_sxxrs")
+}
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_l5c32"]
+
+[node name="laser_sprite_group" type="Node2D" groups=["laser_sprite"]]
+script = ExtResource("1_sxxrs")
+
+[node name="laser" type="Sprite2D" parent="."]
+modulate = Color(1.3, 1, 1, 1)
+material = SubResource("ShaderMaterial_0h3w5")
+position = Vector2(4, -2)
+texture = ExtResource("1_vpegx")
+offset = Vector2(4.54727, -0.324829)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="laser"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_l5c32")
+}
+
+[node name="laser_area" type="ShapeCast2D" parent="laser"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-13, -1)
+rotation = -1.5708
+scale = Vector2(2.02, 1.28)
+shape = SubResource("SegmentShape2D_l5c32")
+target_position = Vector2(-3.0756e-05, 14.2857)
+collision_mask = 27
+script = ExtResource("3_vpegx")
+damage = 5.0
+knockback_enabled = true
+knockback_strength = 10.0
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 5.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_0h3w5")
+volume_db = -51.253
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

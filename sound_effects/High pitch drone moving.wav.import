@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://coswjuybo27eu"
+path="res://.godot/imported/High pitch drone moving.wav-4ed2aabb798ba9d8945d80dc40fa9673.sample"
+
+[deps]
+
+source_file="res://sound_effects/High pitch drone moving.wav"
+dest_files=["res://.godot/imported/High pitch drone moving.wav-4ed2aabb798ba9d8945d80dc40fa9673.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,21 @@
+[gd_resource type="BehaviorTree" load_steps=7 format=3 uid="uid://cqw1pt5nweqp6"]
+
+[ext_resource type="PackedScene" uid="uid://qy626r7ae4k8" path="res://scenes/enemies/enemy_scenes/spider_shield.tscn" id="1_ediev"]
+[ext_resource type="Script" uid="uid://bdxrbydgsa3sd" path="res://ai/tasks/drone/Instance.gd" id="2_ediev"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_4mf40"]
+
+[sub_resource type="BTAction" id="BTAction_ediev"]
+custom_name = "Instance"
+script = ExtResource("2_ediev")
+instance = ExtResource("1_ediev")
+
+[sub_resource type="BTWait" id="BTWait_ediev"]
+duration = 4.0
+
+[sub_resource type="BTSelector" id="BTSelector_v4vcb"]
+children = [SubResource("BTAction_ediev"), SubResource("BTWait_ediev")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_4mf40")
+root_task = SubResource("BTSelector_v4vcb")

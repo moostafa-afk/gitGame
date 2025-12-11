@@ -1,0 +1,260 @@
+[gd_scene load_steps=12 format=3 uid="uid://bbie3b84qewe"]
+
+[ext_resource type="Material" uid="uid://g80siik71qlh" path="res://Shaders/.tres files/block_white.tres" id="1_66klm"]
+[ext_resource type="Script" uid="uid://cg3h2wvg4hlm0" path="res://scenes/block/block_timer.gd" id="1_vpped"]
+[ext_resource type="Texture2D" uid="uid://1lcg2jc2hpr5" path="res://assets/backgoround/Block.png" id="2_rfxuc"]
+[ext_resource type="Script" uid="uid://di2c7ryl5cha1" path="res://scenes/block/white_block_flash.gd" id="4_1y88q"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vpped"]
+texture = ExtResource("2_rfxuc")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -3.59717, 8, -3.95689, 8, 3.77703, -8, 3.77703)
+0:0/0/physics_layer_0/polygon_0/one_way = true
+
+[sub_resource type="TileSet" id="TileSet_rfxuc"]
+physics_layer_0/collision_layer = 16
+sources/0 = SubResource("TileSetAtlasSource_vpped")
+
+[sub_resource type="Animation" id="Animation_1y88q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:material:shader_parameter/COLORSWAP_input_color1")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0901961, 0.698039, 0.815686, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:material:shader_parameter/COLORSWAP_output_color1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0901961, 0.698039, 0.815686, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:material:shader_parameter/COLORSWAP_input_color2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0784314, 0.533333, 0.623529, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:material:shader_parameter/COLORSWAP_output_color2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0784314, 0.533333, 0.623529, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..:material:shader_parameter/COLORSWAP_tolerance")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("..:material:shader_parameter/COLORSWAP_mix")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_66klm"]
+resource_name = "color_change"
+length = 6.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:material:shader_parameter/COLORSWAP_input_color1")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0901961, 0.698039, 0.815686, 1), Color(1, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:material:shader_parameter/COLORSWAP_output_color1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0901961, 0.698039, 0.815686, 1), Color(1, 0, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:material:shader_parameter/COLORSWAP_input_color2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0784314, 0.533333, 0.623529, 1), Color(0.416754, 8.48304e-07, 2.16588e-07, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:material:shader_parameter/COLORSWAP_output_color2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0784314, 0.533333, 0.623529, 1), Color(0.415686, 0, 0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..:material:shader_parameter/COLORSWAP_tolerance")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.6, 2.9, 3.4, 5.5, 5.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.2, 0.2, 0.4, 0.4, 0.8, 1.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("..:material:shader_parameter/COLORSWAP_mix")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(-0.1, 5.7, 5.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.1, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1y88q"]
+_data = {
+&"RESET": SubResource("Animation_1y88q"),
+&"color_change": SubResource("Animation_66klm")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpped"]
+size = Vector2(0.28553, 17.6806)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_vpped"]
+
+[node name="blocks" type="TileMapLayer" groups=["blocks"]]
+modulate = Color(0.85, 0.85, 0.85, 1)
+material = ExtResource("1_66klm")
+use_parent_material = true
+position = Vector2(1, 0)
+tile_map_data = PackedByteArray(0, 0, 254, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_rfxuc")
+script = ExtResource("1_vpped")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_1y88q")
+}
+autoplay = "color_change"
+
+[node name="white_block_flash" type="Node" parent="."]
+script = ExtResource("4_1y88q")
+
+[node name="block_remove" type="Timer" parent="."]
+unique_name_in_owner = true
+process_priority = 1
+process_callback = 0
+wait_time = 6.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+scale = Vector2(6.81571, 0.373319)
+collision_layer = 16
+
+[node name="coll_shape" type="CollisionShape2D" parent="Area2D"]
+unique_name_in_owner = true
+position = Vector2(5.96046e-08, -3.8147e-06)
+scale = Vector2(36.9973, 1.21203)
+shape = SubResource("RectangleShape2D_vpped")
+
+[node name="left" type="ShapeCast2D" parent="Area2D"]
+unique_name_in_owner = true
+position = Vector2(-4.69504, -21.4294)
+scale = Vector2(-0.64, 5.019)
+shape = SubResource("SegmentShape2D_vpped")
+target_position = Vector2(12.838, 0)
+collision_mask = 6
+
+[node name="right" type="ShapeCast2D" parent="Area2D"]
+unique_name_in_owner = true
+position = Vector2(4.69504, 21.4294)
+rotation = 3.14159
+scale = Vector2(-0.64, 5.019)
+shape = SubResource("SegmentShape2D_vpped")
+target_position = Vector2(12.838, 0)
+collision_mask = 6
+
+[node name="add_right" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+
+[node name="change_color" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("1_66klm")
+
+[node name="flash_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="block_remove" to="." method="_on_block_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="add_right" to="." method="_on_add_block_timer_timeout"]
+[connection signal="timeout" from="change_color" to="." method="_on_change_color_timeout"]
+[connection signal="timeout" from="flash_timer" to="white_block_flash" method="_on_glow_timer_timeout"]

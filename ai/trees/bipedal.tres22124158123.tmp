@@ -1,0 +1,88 @@
+[gd_resource type="BehaviorTree" load_steps=24 format=3 uid="uid://dk6bsl8iqc4uw"]
+
+[ext_resource type="Script" uid="uid://cg8gpkokhvmln" path="res://ai/tasks/Check distance.gd" id="1_fxuc4"]
+[ext_resource type="Script" uid="uid://b1writ5oqj4eh" path="res://ai/tasks/Up_Down.gd" id="2_1v61r"]
+[ext_resource type="Script" uid="uid://c4vd7spqyngw5" path="res://ai/tasks/Collision.gd" id="3_6xfwd"]
+[ext_resource type="Script" uid="uid://bbk6kip31r5e2" path="res://ai/tasks/Jump.gd" id="4_8bax6"]
+[ext_resource type="Script" uid="uid://6f47hyfbb3vf" path="res://ai/tasks/check_block.gd" id="4_p1tlg"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_1v61r"]
+var/State/name = &"State"
+var/State/type = 4
+var/State/value = ""
+var/State/hint = 0
+var/State/hint_string = ""
+
+[sub_resource type="BTAction" id="BTAction_scqg3"]
+custom_name = "Disable mask for block"
+script = ExtResource("4_p1tlg")
+
+[sub_resource type="BBNode" id="BBNode_fxuc4"]
+saved_value = NodePath("AnimationPlayer")
+resource_name = "AnimationPlayer"
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_8bax6"]
+animation_player = SubResource("BBNode_fxuc4")
+animation_name = &"walk"
+
+[sub_resource type="BTAction" id="BTAction_p1tlg"]
+script = ExtResource("1_fxuc4")
+min_distance = 20
+
+[sub_resource type="BTAction" id="BTAction_8bax6"]
+custom_name = "Raycast collision with floor"
+script = ExtResource("3_6xfwd")
+
+[sub_resource type="BTSequence" id="BTSequence_bqr7p"]
+custom_name = "Walk"
+children = [SubResource("BTPlayAnimation_8bax6"), SubResource("BTAction_p1tlg"), SubResource("BTAction_8bax6")]
+
+[sub_resource type="BTAction" id="BTAction_fxuc4"]
+script = ExtResource("2_1v61r")
+down_offset = 16
+
+[sub_resource type="BTSequence" id="BTSequence_fxuc4"]
+custom_name = "Check up or down"
+children = [SubResource("BTAction_fxuc4")]
+
+[sub_resource type="BBVariant" id="BBVariant_p1tlg"]
+type = 4
+saved_value = "Fall"
+resource_name = "Fall"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_scqg3"]
+variable = &"State"
+value = SubResource("BBVariant_p1tlg")
+
+[sub_resource type="BTSequence" id="BTSequence_8bax6"]
+custom_name = "Fall"
+children = [SubResource("BTCheckVar_scqg3")]
+
+[sub_resource type="BBVariant" id="BBVariant_tf0vs"]
+type = 4
+saved_value = "Jump"
+resource_name = "Jump"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_bjfws"]
+variable = &"State"
+value = SubResource("BBVariant_tf0vs")
+
+[sub_resource type="BTAction" id="BTAction_oubh8"]
+script = ExtResource("4_8bax6")
+Jump = 500
+
+[sub_resource type="BTSequence" id="BTSequence_p1tlg"]
+custom_name = "Jump"
+children = [SubResource("BTCheckVar_bjfws"), SubResource("BTAction_oubh8")]
+
+[sub_resource type="BTSelector" id="BTSelector_tf0vs"]
+custom_name = "Bipedal tree"
+children = [SubResource("BTSequence_bqr7p"), SubResource("BTSequence_fxuc4"), SubResource("BTSequence_8bax6"), SubResource("BTSequence_p1tlg")]
+
+[sub_resource type="BTParallel" id="BTParallel_8bax6"]
+custom_name = "Bipedal tree and check"
+children = [SubResource("BTAction_scqg3"), SubResource("BTSelector_tf0vs")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_1v61r")
+root_task = SubResource("BTParallel_8bax6")
